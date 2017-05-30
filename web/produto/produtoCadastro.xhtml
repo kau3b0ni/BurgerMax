@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="titulo">
+        Cadastro de Produto
+    </ui:define>
+    
+    <ui:define name="top">
+        BurgerMax - Cadastro de Produto
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <h:form prependId="false">
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Descricao" for="descricao"/>
+                <p:inputText id="descricao" value="#{produtoControllerMB.produto.descricao}" required="true" size="50"/>
+                <p:messages for="descricao" />                
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Valor" for="valor"/>
+                <p:inputText id="valor" value="#{produtoControllerMB.produto.valor}" required="true" size="50"/>
+                <p:messages for="valor" />                
+            </p:panelGrid>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Categoria" for="categoria"/>
+                <p:inputText id="categoria" value="#{produtoControllerMB.produto.categoria}" required="true" size="50"/>
+                <p:messages for="categoria" />                
+            </p:panelGrid>
+            <p:commandButton value="Cadastrar" action="#{produtoControllerMB.cadastrarProduto}"/>
+            <p:commandButton value="Limpar" action="#{produtoControllerMB.limparSession}" update="@form"/>
+        </h:form>    
+        
+    </ui:define>
+    
+</ui:composition>

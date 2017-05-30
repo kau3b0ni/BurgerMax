@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">
+        Cadastro de Cliente
+    </ui:define>   
+    
+    
+    <ui:define name="top">
+        BurgerMax - Cadastro de Cliente
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Nome" for="nome"/>
+                <p:inputText id="nome" value="#{clienteControllerMB.cliente.nome}" required="true" size="50"/>
+                <p:messages for="nome" />
+                <p:outputLabel value="Endereço" for="endereco"/>
+                <p:inputText id="endereco" value="#{clienteControllerMB.cliente.endereco}" required="true" size="50"/>
+                <p:messages for="endereco" />
+                <p:outputLabel value="Numero" for="numero"/>
+                <p:inputText id="numero" value="#{clienteControllerMB.cliente.numero}" required="true"/>
+                <p:messages for="numero" />
+                <p:outputLabel value="Bairro" for="bairro"/>
+                <p:inputText id="bairro" value="#{clienteControllerMB.cliente.bairro}" required="true"/>
+                <p:messages for="bairro" />
+                <p:outputLabel value="Telefone" for="telefone"/>
+                <p:inputText id="telefone" value="#{clienteControllerMB.cliente.telefone}" required="true"/>
+                <p:messages for="telefone" />
+                <p:outputLabel value="Celular" for="celular"/>
+                <p:inputText id="celular" value="#{clienteControllerMB.cliente.celular}" required="true"/>
+                <p:messages for="celular" />
+            </p:panelGrid>
+            <p:commandButton value="Cadastrar" action="#{clienteControllerMB.cadastrarCliente}" update="@form"/>
+            <p:commandButton value="Limpar" action="#{clienteControllerMB.limparSession}" update="@form"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
