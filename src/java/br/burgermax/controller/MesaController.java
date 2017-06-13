@@ -68,6 +68,41 @@ public class MesaController {
         return navegacao;
     }
     
+    public String prepararCadastro(Mesa mesa) {
+        String navegacao = "mesaCadastro?faces-redirect=true";
+        this.mesa = mesa;
+        return navegacao;
+    }
+    
+    public String excluiMesa(Mesa mesa) {
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        FacesMessage mensagem;
+        String navegacao = "listagemMesa";
+        EntityManager em = EntityManagerUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Mesa mesa2 = em.merge(mesa);
+            em.remove(mesa2);
+            em.getTransaction().commit();
+            this.mesa = mesa2;
+            mensagem = new FacesMessage(
+                        FacesMessage.SEVERITY_INFO, "Exclusão Efetuada!",
+                        "Mesa: " + this.mesa.getNumero() + "Excluida com Sucesso!");
+        } catch (Exception e) {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.getTransaction().rollback();
+            mensagem = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "Erro.",
+                        "Mesa: " + this.mesa.getNumero() + "não excluído!");
+        }finally {
+            em.close();
+        }
+        contexto.addMessage(null, mensagem);
+        return navegacao;
+    }
+    
     public String limparSession() {
         String navegacao = "index";
         // Contexto da aplicação
