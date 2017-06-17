@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="titulo">        
+        Pedido Entrega
+    </ui:define>
+    
+    <ui:define name="top">
+        BurgerMax - Pedido Entrega
+    </ui:define>
+    
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewAction action="#{pedidoEntregaControllerMB.carregarClientes}"/>
+            <f:viewAction action="#{itemPedidoEntregaControllerMB.carregarItens}"/>
+        </f:metadata>        
+        
+        <h:form prependId="false">           
+            <p:panelGrid columns="3">
+                <p:outputLabel value="Cliente"/>
+                <h:selectOneMenu value="#{pedidoEntregaControllerMB.pedidoEntrega.cliente}" label="Cliente"
+                                 converter="clienteConverter" immediate="true">
+                    <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                    <f:selectItems value="#{pedidoEntregaControllerMB.listagemClientes}" var="cliente"
+                                   itemLabel="#{cliente.nome}" itemValue="#{cliente}"/>                    
+                </h:selectOneMenu>
+                <p:messages  />
+                <p:outputLabel value="Id" for="id"/>
+                <p:inputText id="id" value="#{pedidoEntregaControllerMB.pedidoEntrega.id}" readonly="true"/>
+                <p:messages for="id" />
+                <p:outputLabel value="Pagamento"/>
+                <p:selectOneButton value="#{pedidoEntregaControllerMB.pedidoEntrega.formaPagamento}">
+                    <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+                    <f:selectItem itemLabel="Cartão de Crédito" itemValue="Cartao" />                    
+                </p:selectOneButton>
+                <p:outputLabel value="Selecione"/>     
+            </p:panelGrid>
+            
+               
+                <p:commandButton 
+                        
+                        value="Add Item ao Pedido"
+                        title="Add Item ao Pedido" icon="ui-icon-plus"/>
+                
+                        
+                             
+            <h:form>
+                
+                <p:dataTable value="#{itemPedidoEntregaControllerMB.listagemItemPedidoEntrega}"
+                         var="listagem">
+                    <p:column rendered="false" >
+                        <f:facet name="header">ID</f:facet>
+                        <p:outputLabel value="#{listagem.id}"/>
+                    </p:column>
+                    <p:column rendered="false" >
+                        <f:facet name="header">Pedido ID</f:facet>
+                        <p:outputLabel value="#{listagem.pedidoEntrega.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Produto</f:facet>
+                        <p:outputLabel class="cell_nome" value="#{listagem.produto.descricao}"/>
+                    </p:column>
+                    <p:column class="col_cel" >
+                        <f:facet name="header">Valor R$</f:facet>
+                        <p:outputLabel value="#{listagem.produto.valor}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header"> Ação </f:facet>
+
+                        <p:commandButton style="font-size: smaller"
+
+                                         title="Remover" icon="ui-icon-trash" update="@form"/>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>            
+            <p:commandButton value="Gerar pedido" action="#{pedidoEntregaControllerMB.cadastrarPedidoEntrega}" update="@form"/>
+            <p:commandButton value="Limpar" action="#{pedidoEntregaControllerMB.limparSession}" update="@form"/>
+        </h:form>
+        
+       
+        
+        <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>        
+        
+        
+    </ui:define>
+    
+</ui:composition>

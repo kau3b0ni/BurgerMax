@@ -28,8 +28,9 @@
            <p:growl id="messages" showDetail="false"/>
            <p:menu>
                     <p:submenu label="Pedidos">
-                        <p:menuitem value="Novo" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
-                        <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                        <p:menuitem value="Entrega " outcome="/pedido/pedidoEntregaCadastro.xhtml"       icon="ui-icon-plus" />
+                        <p:menuitem value="Mesa"   actionListener="#{menuView.save}"          icon="ui-icon-plus" />
+                        <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-plus" />
                     </p:submenu>
                     <p:submenu label="Clientes">
                         <p:menuitem value="Novo" 
