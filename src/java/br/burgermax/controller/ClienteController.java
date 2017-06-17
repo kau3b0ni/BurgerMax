@@ -131,7 +131,7 @@ public class ClienteController {
             
             
         }catch(Exception e){
-            System.out.println("Ops, error: " + e);
+            System.out.println("Erro: " + e);
             if(!em.getTransaction().isActive()){
                 em.getTransaction().begin();
             }

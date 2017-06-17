@@ -87,10 +87,10 @@ public class ProdutoController {
         
     }
     
-    public void carregarProdutos(){
+    public void carregarProdutos(String cat){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BurgerMaxPU");
         EntityManager em = emf.createEntityManager();
-        String cat = "Lanches";//receber via parametro
+        
        try{
             TypedQuery<Produto> query = em.createQuery("Select p from Produto p where p.categoria='"+cat+"'", Produto.class); //Cliente.class? 
             this.listagemProdutos = query.getResultList();

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/template.css"/>
+        
+        <title> 
+            <ui:insert name="titulo" >
+                BurgerMax 
+            </ui:insert>
+        </title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+                <h2> BurgerMax </h2>
+            </ui:insert>
+        </div>
+        <div id="left">
+           <h:form>  
+           <p:growl id="messages" showDetail="false"/>
+           <p:menu>
+                    <p:submenu label="Pedidos">
+                        <p:menuitem value="Novo" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                        <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                    </p:submenu>
+                    <p:submenu label="Clientes">
+                        <p:menuitem value="Novo" 
+                                    outcome="/cliente/clienteCadastro.xhtml" 
+                                    icon="ui-icon-plus" />
+                        <p:menuitem value="Exibir" 
+                                    outcome="/cliente/clienteListagem.xhtml"       
+                                    icon="ui-icon-person" />
+                    </p:submenu>
+                    <p:submenu label="Produtos">
+                        
+                        <p:menuitem value="Novo" 
+                                    outcome="/produto/produtoCadastro.xhtml" 
+                                    icon="ui-icon-plus" />
+                        <p:menuitem value="Lanches" 
+                                    outcome="/produto/produtoListagem.xhtml"                                 
+                                    icon="ui-icon-tag" />
+                        <p:menuitem value="Bebidas" 
+                                    outcome="/produto/produtoListagem.xhtml"       
+                                    icon="ui-icon-tag" />
+                        
+                        
+                    </p:submenu>                  
+                    <p:submenu label="Mesas">
+                        <p:menuitem value="Novo" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                        <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                    </p:submenu>
+                    <p:submenu label="Contas a pagar">
+                        <p:menuitem value="Novo" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                        <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
+                    </p:submenu>                             
+            </p:menu>
+            </h:form>
+        </div>
+        <div id="content" class="left_content">
+            <ui:insert name="content">
+                Conteúdo da página
+            </ui:insert>
+        </div>
+        
+        <!--
+        <div id="bottom">
+            <ui:insert name="bottom">
+                Exemplo de rodapé
+            </ui:insert>
+        </div> -->
+
+    </h:body>
+
+</html>

@@ -59,10 +59,10 @@
                         title="Editar" icon="ui-icon-plus"/>
                     <p:commandButton style="font-size: smaller"
                                      action="#{clienteControllerMB.excluirCliente(listagem)}"
-                                     title="Excluir" icon="ui-icon-trash"/>
+                                     title="Excluir" icon="ui-icon-trash" update="@form"/>
                     <p:commandButton style="font-size: smaller"
                                      action="#{clienteControllerMB.prepararCadastro(listagem)}"            
-                                     title="Editar" icon="ui-icon-pencil"/>                       
+                                     title="Editar" icon="ui-icon-pencil" update="@form"/>                       
                 </p:column>
             </p:dataTable>    
             
