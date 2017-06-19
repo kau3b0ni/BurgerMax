@@ -1,6 +1,9 @@
 package br.burgermax.controller;
 
 import br.burgermax.model.Cliente;
+import br.burgermax.model.Produto;
+import br.burgermax.util.EntityManagerUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +25,7 @@ public class ClienteController {
 
     public ClienteController() {
         this.cliente = new Cliente();
+        this.listagemClientes = new ArrayList<Cliente>();
     }
 
     public Cliente getCliente() {
@@ -47,8 +51,7 @@ public class ClienteController {
         FacesContext contexto = FacesContext.getCurrentInstance();
         FacesMessage mensagem; 
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BurgerMaxPU");
-        EntityManager em = emf.createEntityManager();        
+        EntityManager em = EntityManagerUtil.getEntityManager();       
         try{
             em.getTransaction().begin();
             this.cliente = em.merge(cliente);
@@ -64,7 +67,7 @@ public class ClienteController {
                 em.getTransaction().begin();
             }
             em.getTransaction().rollback();
-            navegacao = "clienteListagem?faces-redirect=true";
+            navegacao = "clienteCadastro?faces-redirect=true";
             mensagem = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         "Erro.","Cliente " 
@@ -91,8 +94,7 @@ public class ClienteController {
     }
     
     public void carregarClientes(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BurgerMaxPU");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = EntityManagerUtil.getEntityManager(); 
         try{
             TypedQuery<Cliente> query = em.createQuery("Select c from Cliente c", Cliente.class); //Cliente.class?
             this.listagemClientes = query.getResultList();
@@ -111,14 +113,10 @@ public class ClienteController {
     }
     
     public String excluirCliente(Cliente cli){
-        String navegacao = "clienteListagem";
-        
-        
+        String navegacao = "clienteListagem"; 
         FacesContext contexto = FacesContext.getCurrentInstance();
         FacesMessage mensagem;
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BurgerMaxPU");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = EntityManagerUtil.getEntityManager(); 
         
         try{
             em.getTransaction().begin();
@@ -148,6 +146,12 @@ public class ClienteController {
         
         contexto.addMessage(null, mensagem);
         return navegacao;        
+    }
+    
+    public String novoCliente(){
+        Cliente novoCliente = new Cliente();
+        String navegacao="clienteCadastro?faces-redirect=true";        
+        return navegacao;
     }
     
 

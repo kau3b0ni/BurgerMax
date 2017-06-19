@@ -17,10 +17,11 @@
     <ui:define name="content">
         <f:metadata>
             <f:viewAction action="#{pedidoEntregaControllerMB.carregarClientes}"/>
-            <f:viewAction action="#{itemPedidoEntregaControllerMB.carregarItens}"/>
-        </f:metadata>        
+            <f:viewAction action="#{pedidoEntregaControllerMB.carregarItensPedido}"/>             
+        </f:metadata>       
         
-        <h:form prependId="false">           
+        <h:form prependId="false">
+       
             <p:panelGrid columns="3">
                 <p:outputLabel value="Cliente"/>
                 <h:selectOneMenu value="#{pedidoEntregaControllerMB.pedidoEntrega.cliente}" label="Cliente"
@@ -30,9 +31,7 @@
                                    itemLabel="#{cliente.nome}" itemValue="#{cliente}"/>                    
                 </h:selectOneMenu>
                 <p:messages  />
-                <p:outputLabel value="Id" for="id"/>
-                <p:inputText id="id" value="#{pedidoEntregaControllerMB.pedidoEntrega.id}" readonly="true"/>
-                <p:messages for="id" />
+                
                 <p:outputLabel value="Pagamento"/>
                 <p:selectOneButton value="#{pedidoEntregaControllerMB.pedidoEntrega.formaPagamento}">
                     <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
@@ -41,47 +40,38 @@
                 <p:outputLabel value="Selecione"/>     
             </p:panelGrid>
             
-               
-                <p:commandButton 
-                        
-                        value="Add Item ao Pedido"
-                        title="Add Item ao Pedido" icon="ui-icon-plus"/>
-                
-                        
-                             
-            <h:form>
-                
-                <p:dataTable value="#{itemPedidoEntregaControllerMB.listagemItemPedidoEntrega}"
-                         var="listagem">
-                    <p:column rendered="false" >
+            <p:dataTable value="#{pedidoEntregaControllerMB.listagemItensPedidos}" var="itens">
+                    <p:column rendered="true" >
                         <f:facet name="header">ID</f:facet>
-                        <p:outputLabel value="#{listagem.id}"/>
+                        <p:outputLabel value="#{itens.id}"/>
                     </p:column>
-                    <p:column rendered="false" >
-                        <f:facet name="header">Pedido ID</f:facet>
-                        <p:outputLabel value="#{listagem.pedidoEntrega.id}"/>
-                    </p:column>
+                    <p:column rendered="true" >
+                        <f:facet name="header">ID-Pedido</f:facet>
+                        <p:outputLabel value="#{itens.pedido_id}"/>
+                    </p:column>  
                     <p:column>
                         <f:facet name="header">Produto</f:facet>
-                        <p:outputLabel class="cell_nome" value="#{listagem.produto.descricao}"/>
+                        <p:outputLabel class="cell_nome" value="#{itens.produto.nome}"/>
                     </p:column>
                     <p:column class="col_cel" >
                         <f:facet name="header">Valor R$</f:facet>
-                        <p:outputLabel value="#{listagem.produto.valor}"/>
+                        <p:outputLabel value="#{itens.produto.valor}"/>
                     </p:column>
 
                     <p:column>
                         <f:facet name="header"> Ação </f:facet>
 
                         <p:commandButton style="font-size: smaller"
-
                                          title="Remover" icon="ui-icon-trash" update="@form"/>
 
                     </p:column>
                 </p:dataTable>
-            </h:form>            
+                        
             <p:commandButton value="Gerar pedido" action="#{pedidoEntregaControllerMB.cadastrarPedidoEntrega}" update="@form"/>
             <p:commandButton value="Limpar" action="#{pedidoEntregaControllerMB.limparSession}" update="@form"/>
+            <p:commandButton value="Adicionar item" action="#{pedidoEntregaControllerMB.novoItemPedido(4)}"            
+                             icon="ui-icon-plus" update="@form"/>
+        
         </h:form>
         
        

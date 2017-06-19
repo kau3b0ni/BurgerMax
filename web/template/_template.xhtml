@@ -40,20 +40,22 @@
                                     outcome="/cliente/clienteListagem.xhtml"       
                                     icon="ui-icon-person" />
                     </p:submenu>
-                    <p:submenu label="Produtos">
-                        
+                    <p:submenu label="Produtos">                        
                         <p:menuitem value="Novo" 
                                     outcome="/produto/produtoCadastro.xhtml" 
                                     icon="ui-icon-plus" />
-                        <p:menuitem value="Lanches" 
+                        <p:menuitem value="Exibir" 
                                     outcome="/produto/produtoListagem.xhtml"                                 
-                                    icon="ui-icon-tag" />
-                        <p:menuitem value="Bebidas" 
-                                    outcome="/produto/produtoListagem.xhtml"       
-                                    icon="ui-icon-tag" />
-                        
-                        
-                    </p:submenu>                  
+                                    icon="ui-icon-tag" />                        
+                    </p:submenu>
+                    <p:submenu label="Categorias">
+                        <p:menuitem value="Nova" 
+                                    outcome="/categoria/categoriaCadastro.xhtml" 
+                                    icon="ui-icon-plus" />
+                        <p:menuitem value="Exibir" 
+                                    outcome="/categoria/categoriaListagem.xhtml"      
+                                    icon="ui-icon-person" />
+                    </p:submenu>
                     <p:submenu label="Mesas">
                         <p:menuitem value="Novo" actionListener="#{menuView.save}"          icon="ui-icon-disk" />
                         <p:menuitem value="Exibir" actionListener="#{menuView.save}"          icon="ui-icon-disk" />

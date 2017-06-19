@@ -17,7 +17,7 @@
     
      <ui:define name="content">
         <f:metadata>            
-            <f:viewAction action="#{produtoControllerMB.carregarProdutos('Lanches')}"/>
+            <f:viewAction action="#{produtoControllerMB.carregarProdutos}"/>
         </f:metadata>
         <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>
         <h:form>
@@ -26,6 +26,10 @@
                 <p:column rendered="false">
                     <f:facet name="header">ID</f:facet>
                     <p:outputLabel value="#{listagem.id}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                    <p:outputLabel value="#{listagem.nome}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">Descricao</f:facet>
@@ -37,10 +41,23 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">Categoria</f:facet>
-                    <p:outputLabel value="#{listagem.categoria}"/>
+                    <p:outputLabel value="#{listagem.categoria.nome}"/>
                 </p:column>
-             
+                <p:column>
+                    <f:facet name="header"> Comandos </f:facet>
+                    
+                    <p:commandButton style="font-size: smaller"
+                                     action="#{produtoControllerMB.excluirProduto(listagem)}"
+                                     value="Excluir" title="Excluir" icon="ui-icon-trash" update="@form"/>
+                    <p:commandButton style="font-size: smaller"
+                                     action="#{produtoControllerMB.prepararCadastro(listagem)}"            
+                                      value="Editar" title="Editar" icon="ui-icon-pencil" update="@form"/>                       
+                </p:column>             
              </p:dataTable>            
+            
+             <p:commandButton 
+                              action="#{produtoControllerMB.novoProduto}"            
+                              value="Novo" title="Editar" icon="ui-icon-plus" update="@form"/>            
         </h:form>
         
     </ui:define>

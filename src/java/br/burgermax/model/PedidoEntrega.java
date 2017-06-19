@@ -2,7 +2,6 @@ package br.burgermax.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,23 +12,16 @@ import javax.persistence.Table;
 public class PedidoEntrega extends Pedido implements Serializable{    
         
     @ManyToOne
-    @JoinColumn(referencedColumnName = "cli_id", name = "ped_ent_cli_id")
+    @JoinColumn(referencedColumnName = "cli_id", name = "pedido_enttrenga_cli_id")
     private Cliente cliente;
 
     public PedidoEntrega(Cliente cliente, int id, Double valorTotal, Date dataHora, String estado, String formaPagamento, boolean estadoPagamento, boolean tipo) {
         super(id, valorTotal, dataHora, estado, formaPagamento, estadoPagamento, tipo);
         this.cliente = cliente;
     }
-
-    public PedidoEntrega(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public PedidoEntrega() {
-    }
-
    
-        
+    public PedidoEntrega() {
+    }         
 
     public Cliente getCliente() {
         return cliente;

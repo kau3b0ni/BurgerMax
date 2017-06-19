@@ -2,10 +2,14 @@
 package br.burgermax.controller;
 
 import br.burgermax.model.Cliente;
+import br.burgermax.model.ItemPedido;
 import br.burgermax.model.Pedido;
 import br.burgermax.model.PedidoEntrega;
 import br.burgermax.util.EntityManagerUtil;
+import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,19 +22,28 @@ import javax.servlet.http.HttpSession;
 
 @ManagedBean(name="pedidoEntregaControllerMB")
 @SessionScoped
-public class PedidoEntregaController {
+public class PedidoEntregaController implements Serializable{
     
     private PedidoEntrega pedidoEntrega;
     private List<PedidoEntrega> listagemPedidoEntrega;
     private List<Cliente> listagemClientes;
+    private List<ItemPedido> listagemItensPedidos;    
+   
 
     public PedidoEntregaController(){
         this.pedidoEntrega = new PedidoEntrega();
         this.listagemPedidoEntrega = new ArrayList<PedidoEntrega>();
+        this.listagemItensPedidos = new ArrayList<ItemPedido>();
         this.listagemClientes = new ArrayList<Cliente>();
     }   
 
-   
+    public List<ItemPedido> getListagemItensPedidos() {
+        return listagemItensPedidos;
+    }
+
+    public void setListagemItensPedidos(List<ItemPedido> listagemItensPedidos) {
+        this.listagemItensPedidos = listagemItensPedidos;
+    }
 
     public PedidoEntrega getPedidoEntrega() {
         return pedidoEntrega;
@@ -57,10 +70,14 @@ public class PedidoEntregaController {
     }   
     
     public String cadastrarPedidoEntrega() {
-        String navegacao = "pedidosEntrega?faces-redirect=true";
+        String navegacao = "pedidoListagem?faces-redirect=true";
         FacesContext contexto = FacesContext.getCurrentInstance();
         FacesMessage mensagem;
         EntityManager em = EntityManagerUtil.getEntityManager();
+        pedidoEntrega.setEstado("Em produção");
+        pedidoEntrega.setEstadoPagamento(false);
+        pedidoEntrega.setDataHora(Date.from(Instant.now()));
+        pedidoEntrega.setTipo(true);        
         try {
             em.getTransaction().begin();
             this.pedidoEntrega = em.merge(pedidoEntrega);
@@ -76,7 +93,7 @@ public class PedidoEntregaController {
                 em.getTransaction().begin();
             }
             em.getTransaction().rollback();
-            navegacao = "pedidosEntrega?faces-redirect=true";
+            navegacao = "pedidoListagem?faces-redirect=true";
             mensagem = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         "Erro.", "Pedido: " + this.pedidoEntrega.getId() +
@@ -106,13 +123,13 @@ public class PedidoEntregaController {
      
      
     public String prepararCadastro(PedidoEntrega pedidoEntrega) {
-        String navegacao = "pedidoCadastro?faces-redirect=true";
+        String navegacao = "pedidoEntregaCadastro?faces-redirect=true";
         this.pedidoEntrega = pedidoEntrega;
         return navegacao;
     }
     
     public String limparSession() {
-        String navegacao = "index";
+        String navegacao = "pedidoEntregaCadastro?faces-redirect=true";
         // Contexto da aplicação
         FacesContext context = FacesContext.getCurrentInstance();
         //Verifica a sessão e a "grava" na variável
@@ -136,6 +153,28 @@ public class PedidoEntregaController {
             em.close();
         } 
     }
+    
+    public void carregarItensPedido(){
+        
+        EntityManager em = EntityManagerUtil.getEntityManager();
+        try{
+            TypedQuery<ItemPedido> query=
+                    em.createQuery("Select i from ItemPedido i", ItemPedido.class);
+            this.listagemItensPedidos = query.getResultList();
+        }catch(Exception e){
+            System.out.println("Erro: " + e);
+        }finally{
+            em.close();
+        }        
+    }
+   
+   public String novoItemPedido(int pedido_id){
+        System.out.println(Integer.toString(pedido_id));
+        String navegacao="adicionarItem?faces-redirect=true";   
+        ItemPedido item = new ItemPedido();        
+        return navegacao;
+    }
+    
     
     
 }

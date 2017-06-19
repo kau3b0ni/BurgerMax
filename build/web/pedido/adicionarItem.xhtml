@@ -17,19 +17,20 @@
     <ui:define name="content">
         
         <f:metadata>
-            <f:viewAction action="#{itemPedidoEntregaControllerMB.carregarProdutos}"/>                
+            <f:viewAction action="#{itemPedidoControllerMB.carregarProdutos}"/>
         </f:metadata>
         <h:form>
         <p:panelGrid columns="3">
             <p:outputLabel value="Produto"/>
-            <h:selectOneMenu value="#{itemPedidoEntregaControllerMB.itemPedidoEntrega.produto}" label="Produto"
+            <h:selectOneMenu value="#{itemPedidoControllerMB.itemPedido.produto}" label="Produto"
                              converter="produtoConverter" immediate="true">
                 <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                <f:selectItems value="#{itemPedidoEntregaControllerMB.listagemProdutos}" var="produto"
-                               itemLabel="#{produto.descricao}" itemValue="#{produto}"/>                    
-            </h:selectOneMenu>
-                      
+                <f:selectItems value="#{itemPedidoControllerMB.listagemProdutos}" var="produto"
+                               itemLabel="#{produto.nome}" itemValue="#{produto}"/>                    
+            </h:selectOneMenu>                      
         </p:panelGrid>
+            <p:commandButton value="Cadastrar" action="#{itemPedidoControllerMB.cadastrarItemPedido()}" update="@form"/>
+        <p:commandButton value="Limpar"  update="@form"/>
         </h:form>
         
     </ui:define>

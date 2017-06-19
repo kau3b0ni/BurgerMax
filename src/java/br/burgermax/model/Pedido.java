@@ -39,11 +39,8 @@ public abstract class Pedido{
         this.estadoPagamento = estadoPagamento;
         this.tipo = tipo;
     }  
-
-    
-
-    public Pedido() {
-       
+   
+    public Pedido() {       
     }
 
     public int getId() {
